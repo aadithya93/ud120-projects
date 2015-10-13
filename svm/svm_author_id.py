@@ -14,6 +14,9 @@ import sys
 from time import time
 sys.path.append("../tools/")
 from email_preprocess import preprocess
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+import numpy as np
 
 
 ### features_train and features_test are the features for the training
@@ -26,7 +29,13 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 #########################################################
 ### your code goes here ###
-
+# features_train = features_train[:len(features_train)/100] 
+# labels_train = labels_train[:len(labels_train)/100]
+clf = SVC(kernel='rbf', C = 10000.0)
+clf.fit(features_train, labels_train)
+pred = clf.predict(features_test)
+print np.count_nonzero(pred)
+# print accuracy_score(labels_test,pred)
 #########################################################
 
 
